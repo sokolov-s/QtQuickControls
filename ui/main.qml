@@ -22,8 +22,21 @@ ApplicationWindow {
     }
 
     Label {
-        text: qsTr("Hello World")
+        id: click_cntr
+        text: "0"
         anchors.centerIn: parent
+    }
+
+    Button {
+        text: qsTr("Inc")
+        anchors.top: click_cntr.bottom
+        anchors.topMargin: 5
+        anchors.horizontalCenter: click_cntr.horizontalCenter
+        onClicked: onBtnCounterCliced()
+    }
+
+    function onBtnCounterCliced() {
+        click_cntr.text = parseInt(click_cntr.text) + 1;
     }
 }
 
