@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/images"/>
+    <qresource prefix="/qml">
+        <file alias="CellGray.png">resources/images/сell/Gray.png</file>
+        <file alias="O.png">resources/images/сell/O.png</file>
+        <file alias="X.png">resources/images/сell/X.png</file>
+    </qresource>
+</RCC>
