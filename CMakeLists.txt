@@ -1,14 +1,14 @@
 cmake_minimum_required (VERSION 3.0.2)
-project(QtTest)
+project(TicTacToe)
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-set(QtTest_HEADERS
+set(TicTacToe_HEADERS
 )
 
-set(QtTest_SRCS
+set(TicTacToe_SRCS
     main.cpp
 )
 
@@ -37,9 +37,9 @@ add_definitions("-std=c++11")
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	MESSAGE(STATUS "Build application for Windows")
 	
-	add_executable(QtTest WIN32 ${QtTest_HEADERS} ${QtTest_SRCS} ${UI_HEADERS} ${QRCS})
+	add_executable(TicTacToe WIN32 ${TicTacToe_HEADERS} ${TicTacToe_SRCS} ${UI_HEADERS} ${QRCS})
 	
-	target_link_libraries(QtTest Qt5::WinMain Qt5::Qml Qt5::Quick Qt5::Widgets)
+	target_link_libraries(TicTacToe Qt5::WinMain Qt5::Qml Qt5::Quick Qt5::Widgets)
 	
 	set(DLL_NAMES
 	icudt54.dll
@@ -125,7 +125,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	endforeach(FOLDER_NAME)
 else()
 	MESSAGE(STATUS "Build application for Linux")
-	add_executable(QtTest ${QtTest_HEADERS} ${QtTest_SRCS} ${UI_HEADERS} ${QRCS})
+	add_executable(TicTacToe ${TicTacToe_HEADERS} ${TicTacToe_SRCS} ${UI_HEADERS} ${QRCS})
 endif(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 
-qt5_use_modules(QtTest Widgets Qml Quick)
+qt5_use_modules(TicTacToe Widgets Qml Quick)

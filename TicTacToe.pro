@@ -1,3 +1,7 @@
+macx {
+    QMAKE_MAC_SDK = macosx10.11
+}
+
 TEMPLATE = app
 
 QT += qml quick widgets

@@ -5,14 +5,13 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Tic-Tack-Toe")
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("File")
+            title: qsTr("Game")
             MenuItem {
-                text: qsTr("&Open")
-                onTriggered: console.log("Open action triggered");
+                text: qsTr("&Create")
             }
             MenuItem {
                 text: qsTr("Exit")
@@ -21,22 +20,9 @@ ApplicationWindow {
         }
     }
 
-    Label {
-        id: click_cntr
-        text: "0"
+    Cell {
+        id: cell1
         anchors.centerIn: parent
-    }
-
-    Button {
-        text: qsTr("Inc")
-        anchors.top: click_cntr.bottom
-        anchors.topMargin: 5
-        anchors.horizontalCenter: click_cntr.horizontalCenter
-        onClicked: onBtnCounterCliced()
-    }
-
-    function onBtnCounterCliced() {
-        click_cntr.text = parseInt(click_cntr.text) + 1;
     }
 }
 
