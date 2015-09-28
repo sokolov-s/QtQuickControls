@@ -29,6 +29,7 @@ endif(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 
 qt5_add_resources(QRCS
 	./qml.qrc 
+    ./rsrc.qrc
 )
 
 add_definitions("-std=c++11")
