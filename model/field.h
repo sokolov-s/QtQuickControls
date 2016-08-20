@@ -12,9 +12,11 @@ class Field
 public:
     Field(const size_t size);
     void Clear();
+    const Cell & GetCell(size_t x, size_t y) const;
 private:
     size_t size_;
-    std::vector<std::vector<Cell>> grid_;
+    typedef std::vector<std::vector<Cell>> Grid;
+    Grid grid_;
 };
 } //namespace model
 #endif // FIELD_H

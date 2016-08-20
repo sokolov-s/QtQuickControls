@@ -115,40 +115,46 @@ Item {
         cellGlow.visible = false
     }
 
-    DSM.StateMachine {
-        id: stateMachine
-        initialState: stateEmpty
-        running: true
-        DSM.State {
-            id: stateEmpty
-            DSM.SignalTransition {
-                targetState: stateX
-                signal: cellItem.clicked
-            }
-            onEntered: {
-                cellItem.state="empty"
-            }
-        }
-        DSM.State {
-            id: stateX
-            DSM.SignalTransition {
-                targetState: stateO
-                signal: cellItem.clicked
-            }
-            onEntered: {
-                cellItem.state="X"
-            }
-        }
-        DSM.State {
-            id: stateO
-            DSM.SignalTransition {
-                targetState: stateEmpty
-                signal: cellItem.clicked
-            }
-            onEntered: {
-                cellItem.state="O"
-            }
-        }
+    onClicked: {
+//        if () {
+
+//        }
     }
+
+//    DSM.StateMachine {
+//        id: stateMachine
+//        initialState: stateEmpty
+//        running: true
+//        DSM.State {
+//            id: stateEmpty
+//            DSM.SignalTransition {
+//                targetState: stateX
+//                signal: cellItem.clicked
+//            }
+//            onEntered: {
+//                cellItem.state="empty"
+//            }
+//        }
+//        DSM.State {
+//            id: stateX
+//            DSM.SignalTransition {
+//                targetState: stateO
+//                signal: cellItem.clicked
+//            }
+//            onEntered: {
+//                cellItem.state="X"
+//            }
+//        }
+//        DSM.State {
+//            id: stateO
+//            DSM.SignalTransition {
+//                targetState: stateEmpty
+//                signal: cellItem.clicked
+//            }
+//            onEntered: {
+//                cellItem.state="O"
+//            }
+//        }
+//    }
 }
 

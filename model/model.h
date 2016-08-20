@@ -5,20 +5,28 @@
 #include <memory>
 #include "field.h"
 
-class Controller;
+class ViewModel;
 
 namespace model {
 
 class Model
 {
 public:
-    Model(Controller *cntrl);
+    enum class ePlayer {
+        kX,
+        kO
+    };
+
+    Model(ViewModel *cntrl);
     void CreateField(const size_t size);
     void ClearField();
-    
+    void SetPlayer(ePlayer player);
+    ePlayer GetCurrentPlayer() const;
+    void SwitchPlayer();
 private:
     std::unique_ptr<Field> field_;
-    Controller *controller_ = nullptr;
+    ViewModel *controller_ = nullptr;
+    ePlayer curPlayer_ = ePlayer::kX;
 };
 
 } //namespace model

@@ -1,15 +1,15 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef VIEWMODEL_H
+#define VIEWMODEL_H
 
 #include <QObject>
 #include <memory>
 #include "model/model.h"
 
-class Controller : public QObject
+class ViewModel : public QObject
 {
     Q_OBJECT
 public:
-    explicit Controller(QObject *parent = 0);
+    explicit ViewModel(QObject *parent = 0);
     
 signals:
     void generateFieldInQml(unsigned int size);
@@ -21,4 +21,4 @@ private:
     std::unique_ptr<model::Model> model_;
 };
 
-#endif // CONTROLLER_H
+#endif // VIEWMODEL_H
