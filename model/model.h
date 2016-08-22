@@ -12,7 +12,7 @@ namespace model {
 class Model
 {
 public:
-    enum class ePlayer {
+    enum  ePlayer {
         kX,
         kO
     };
@@ -23,6 +23,7 @@ public:
     void SetPlayer(ePlayer player);
     ePlayer GetCurrentPlayer() const;
     void SwitchPlayer();
+    Field *GetField();
 private:
     std::unique_ptr<Field> field_;
     ViewModel *controller_ = nullptr;

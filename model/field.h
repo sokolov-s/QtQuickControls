@@ -13,6 +13,7 @@ public:
     Field(const size_t size);
     void Clear();
     const Cell & GetCell(size_t x, size_t y) const;
+    Cell *GetCellPtr(size_t x, size_t y);
 private:
     size_t size_;
     typedef std::vector<std::vector<Cell>> Grid;

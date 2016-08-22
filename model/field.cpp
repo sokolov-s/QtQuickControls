@@ -17,3 +17,8 @@ const Cell &Field::GetCell(size_t x, size_t y) const
 {
     return grid_[x][y];
 }
+
+Cell *Field::GetCellPtr(size_t x, size_t y)
+{
+    return &const_cast<Cell&>(GetCell(x,y));
+}

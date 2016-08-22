@@ -2,8 +2,10 @@
 #define VIEWMODEL_H
 
 #include <QObject>
+#include <QString>
 #include <memory>
 #include "model/model.h"
+#include "model/cell.h"
 
 class ViewModel : public QObject
 {
@@ -13,10 +15,14 @@ public:
     
 signals:
     void generateFieldInQml(unsigned int size);
-    
+    void changeCellState(unsigned int x, unsigned int y, const QString & stateString);
+
 public slots:
     void NewGame(unsigned int size);
-    
+    void OnCellCliced(unsigned int x, unsigned int y);
+
+private:
+    QString GetStateString(const model::Cell::eState state);
 private:
     std::unique_ptr<model::Model> model_;
 };

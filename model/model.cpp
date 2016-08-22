@@ -32,3 +32,8 @@ void Model::SwitchPlayer()
     curPlayer_ =  (ePlayer::kX == curPlayer_) ? ePlayer::kO : ePlayer::kX;
 }
 
+Field *Model::GetField()
+{
+    return field_.get();
+}
+

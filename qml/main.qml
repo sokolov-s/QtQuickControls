@@ -1,6 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
-//import com.TicTacToe.ViewModel 1.0
+import com.TicTacToe.ViewModel 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -40,6 +40,8 @@ ApplicationWindow {
                 var obj = cellComponent.createObject(mainWindow);
                 obj.x = x - (obj.width * 3) / 2 + obj.width * j;
                 obj.y = y - (obj.height * 3) / 2 + obj.height * i;
+                obj.arrayX = j;
+                obj.arrayY = i;
             }
         }
     }

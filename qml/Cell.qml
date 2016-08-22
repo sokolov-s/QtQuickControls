@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtGraphicalEffects 1.0
-import QtQml.StateMachine 1.0 as DSM
+import com.TicTacToe.ViewModel 1.0
 
 Item {
     id: cellItem
@@ -9,6 +9,17 @@ Item {
     height: 25
     antialiasing: true
     signal clicked
+    property int arrayX : 0
+    property int arrayY : 0
+
+    Connections {
+        target: viewmodel
+        onChangeCellState: {
+            if(x == arrayX && y == arrayY) {
+                cellItem.state = stateString;
+            }
+        }
+    }
 
     Rectangle {
         id: cell
@@ -116,45 +127,7 @@ Item {
     }
 
     onClicked: {
-//        if () {
-
-//        }
+        viewmodel.OnCellCliced(arrayX, arrayY);
     }
-
-//    DSM.StateMachine {
-//        id: stateMachine
-//        initialState: stateEmpty
-//        running: true
-//        DSM.State {
-//            id: stateEmpty
-//            DSM.SignalTransition {
-//                targetState: stateX
-//                signal: cellItem.clicked
-//            }
-//            onEntered: {
-//                cellItem.state="empty"
-//            }
-//        }
-//        DSM.State {
-//            id: stateX
-//            DSM.SignalTransition {
-//                targetState: stateO
-//                signal: cellItem.clicked
-//            }
-//            onEntered: {
-//                cellItem.state="X"
-//            }
-//        }
-//        DSM.State {
-//            id: stateO
-//            DSM.SignalTransition {
-//                targetState: stateEmpty
-//                signal: cellItem.clicked
-//            }
-//            onEntered: {
-//                cellItem.state="O"
-//            }
-//        }
-//    }
 }
 
