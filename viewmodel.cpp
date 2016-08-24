@@ -4,6 +4,7 @@
 #include <random>
 #include "model/field.h"
 #include"model/model_exeptions.h"
+#include "ai/wincheck.h"
 
 ViewModel::ViewModel(QObject *parent) : QObject(parent)
 {
@@ -29,7 +30,11 @@ void ViewModel::OnCellCliced(unsigned int x, unsigned int y)
         model_->GetField()->GetCellPtr(x, y)->SetState(state);
         emit changeCellState(x, y, GetStateString(state));
         // calculate field status
-        model_->SwitchPlayer();
+        if(ai::IsWin(*model_->GetField(), model_->GetState4Player(model_->GetCurrentPlayer()), model_->GetField()->GetSize())) {
+            emit playerWin(model_->GetCurrentPlayer());
+        } else {
+            model_->SwitchPlayer();
+        }
     } catch (const model::EBadOperation &/*err*/) {
         // in this context we do nothing
     }

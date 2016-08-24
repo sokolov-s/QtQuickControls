@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <memory>
 #include "field.h"
+#include "cell.h"
 
 class ViewModel;
 
@@ -21,9 +22,10 @@ public:
     void CreateField(const size_t size);
     void ClearField();
     void SetPlayer(ePlayer player);
-    ePlayer GetCurrentPlayer() const;
+    ePlayer GetCurrentPlayer() const noexcept;
     void SwitchPlayer();
     Field *GetField();
+    Cell::eState GetState4Player(const ePlayer player) const noexcept;
 private:
     std::unique_ptr<Field> field_;
     ViewModel *controller_ = nullptr;

@@ -22,10 +22,10 @@ public:
 
     Cell(size_t fieldSize);
     void SetState(const eState state);
-    eState GetState() const;
-    const Position & GetPosition() const;
-    size_t GetX() const;
-    size_t GetY() const;
+    eState GetState() const noexcept;
+    const Position & GetPosition() const noexcept;
+    size_t GetX() const noexcept;
+    size_t GetY() const noexcept;
 private:
     Cell::eState state_ = Cell::eState::kEmpty;
     static size_t globalX_;

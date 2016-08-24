@@ -19,6 +19,19 @@ private:
     std::string msg_;
 };
 
+class EWrongParameter : public std::exception
+{
+public:
+    explicit EWrongParameter(const std::string &msg) : msg_(msg){}
+    const char * what() const _GLIBCXX_USE_NOEXCEPT override
+    {
+        return msg_.c_str();
+    }
+
+private:
+    std::string msg_;
+};
+
 } //namespace model
 
 #endif // MODEL_EXEPTIONS_H

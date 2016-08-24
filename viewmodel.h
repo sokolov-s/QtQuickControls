@@ -16,7 +16,7 @@ public:
 signals:
     void generateFieldInQml(unsigned int size);
     void changeCellState(unsigned int x, unsigned int y, const QString & stateString);
-
+    void playerWin(model::Model::ePlayer player);
 public slots:
     void NewGame(unsigned int size);
     void OnCellCliced(unsigned int x, unsigned int y);

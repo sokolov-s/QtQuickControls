@@ -26,22 +26,22 @@ void Cell::SetState(const Cell::eState state)
     }
 }
 
-Cell::eState Cell::GetState() const
+Cell::eState Cell::GetState() const noexcept
 {
     return state_;
 }
 
-const Cell::Position &Cell::GetPosition() const
+const Cell::Position &Cell::GetPosition() const noexcept
 {
     return position_;
 }
 
-size_t Cell::GetX() const
+size_t Cell::GetX() const noexcept
 {
     return position_.x;
 }
 
-size_t Cell::GetY() const
+size_t Cell::GetY() const noexcept
 {
     return position_.y;
 }

@@ -6,14 +6,17 @@ SOURCES += main.cpp \
     model/cell.cpp \
     model/field.cpp \
     model/model.cpp \
-    viewmodel.cpp
+    viewmodel.cpp \
+    ai/wincheck.cpp
 
 HEADERS += \
     model/cell.h \
     model/field.h \
     model/model.h \
     model/model_exeptions.h \
-    viewmodel.h
+    viewmodel.h \
+    ai/wincheck.h \
+    ai/ai_exeptions.h
 
 RESOURCES += qml.qrc \
     rsrc.qrc
