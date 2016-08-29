@@ -23,12 +23,17 @@ public:
     void ClearField();
     void SetPlayer(ePlayer player);
     ePlayer GetCurrentPlayer() const noexcept;
-    void SwitchPlayer();
-    Field *GetField();
+    size_t GetCurrentPlayerNumber() const noexcept;
+    /**
+     * @brief SwitchPlayer - switch player
+     * @return  - number of new player
+     */
+    size_t SwitchPlayer() noexcept;
+    std::shared_ptr<Field> GetField();
     Cell::eState GetState4Player(const ePlayer player) const noexcept;
     bool IsFieldFull() const noexcept;
 private:
-    std::unique_ptr<Field> field_;
+    std::shared_ptr<Field> field_;
     ePlayer curPlayer_ = ePlayer::kX;
 };
 

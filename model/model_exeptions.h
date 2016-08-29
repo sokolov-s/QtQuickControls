@@ -1,7 +1,7 @@
 #ifndef MODEL_EXEPTIONS_H
 #define MODEL_EXEPTIONS_H
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 namespace model {

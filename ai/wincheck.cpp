@@ -1,5 +1,5 @@
 #include "wincheck.h"
-#include "ai_exeptions.h"
+#include <stdexcept>
 #include "../model/model_exeptions.h"
 
 bool ai::IsWin(const model::Field &field, const model::Cell::eState state, const size_t count2win)
@@ -42,7 +42,7 @@ size_t ai::CheckHorizontal(const model::Field &field, const model::Cell::eState 
                 if(field.GetCell(x, position.y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
@@ -54,14 +54,14 @@ size_t ai::CheckHorizontal(const model::Field &field, const model::Cell::eState 
                 if(field.GetCell(x, position.y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
 
         }
         break;
 
-    default: throw EWrongParameter("Trend must be set to kX2Positive or kX2Negative"); break;
+    default: throw std::invalid_argument("Trend must be set to kX2Positive or kX2Negative"); break;
     }
     return count2win - cnt;
 }
@@ -79,7 +79,7 @@ size_t ai::CheckVertical(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(position.x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
@@ -91,13 +91,13 @@ size_t ai::CheckVertical(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(position.x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
         break;
 
-    default: throw EWrongParameter("Trend must be set to kY2Positve or kY2Negative"); break;
+    default: throw std::invalid_argument("Trend must be set to kY2Positve or kY2Negative"); break;
     }
 
     return count2win - cnt;
@@ -117,7 +117,7 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
@@ -129,7 +129,7 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
@@ -141,7 +141,7 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
@@ -153,13 +153,13 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
                 if(field.GetCell(x, y).GetState() == state)
                     ++cnt;
                 if(cnt >= count2win) return 0;
-            } catch (const model::EWrongParameter &/*err*/) {
+            } catch (const std::invalid_argument &/*err*/) {
                 break;
             }
         }
         break;
 
-    default: throw EWrongParameter("Trend must be set to kX2PositiveY2Positive, kX2PositiveY2Negative, kX2NegativeY2Positive or kX2NegativeY2Negative"); break;
+    default: throw std::invalid_argument("Trend must be set to kX2PositiveY2Positive, kX2PositiveY2Negative, kX2NegativeY2Positive or kX2NegativeY2Negative"); break;
     }
 
     return count2win - cnt;

@@ -8,7 +8,7 @@ Model::Model()
 
 void Model::CreateField(const size_t size)
 {
-    field_.reset(new Field(size));
+    field_ = std::make_shared<Field>(size);
 }
 
 void Model::ClearField()
@@ -26,14 +26,20 @@ Model::ePlayer Model::GetCurrentPlayer() const noexcept
     return curPlayer_;
 }
 
-void Model::SwitchPlayer()
+size_t Model::GetCurrentPlayerNumber() const noexcept
 {
-    curPlayer_ =  (ePlayer::kX == curPlayer_) ? ePlayer::kO : ePlayer::kX;
+    return (ePlayer::kX == GetCurrentPlayer()) ? 1 : 2;
 }
 
-Field *Model::GetField()
+size_t Model::SwitchPlayer() noexcept
 {
-    return field_.get();
+    curPlayer_ =  (ePlayer::kX == GetCurrentPlayer()) ? ePlayer::kO : ePlayer::kX;
+    return GetCurrentPlayerNumber();
+}
+
+std::shared_ptr<Field> Model::GetField()
+{
+    return field_;
 }
 
 Cell::eState Model::GetState4Player(const Model::ePlayer player) const noexcept

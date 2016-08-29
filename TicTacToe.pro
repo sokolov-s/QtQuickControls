@@ -7,7 +7,12 @@ SOURCES += main.cpp \
     model/field.cpp \
     model/model.cpp \
     viewmodel.cpp \
-    ai/wincheck.cpp
+    ai/wincheck.cpp \
+    player_factory.cpp \
+    ai/human_player.cpp \
+    ai/ai_player_random.cpp \
+    ai/ai_player_defender.cpp \
+    ai/iplayer.cpp
 
 HEADERS += \
     model/cell.h \
@@ -16,7 +21,11 @@ HEADERS += \
     model/model_exeptions.h \
     viewmodel.h \
     ai/wincheck.h \
-    ai/ai_exeptions.h
+    ai/iplayer.h \
+    player_factory.h \
+    ai/human_player.h \
+    ai/ai_player_random.h \
+    ai/ai_player_defender.h
 
 RESOURCES += qml.qrc \
     rsrc.qrc

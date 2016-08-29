@@ -6,17 +6,14 @@
 #include <memory>
 #include "model/model.h"
 #include "model/cell.h"
+#include "ai/iplayer.h"
+#include <vector>
 
 class ViewModel : public QObject
 {
     Q_OBJECT
 public:
     explicit ViewModel(QObject *parent = 0);
-    enum ePlayer {
-        kHuman,
-        kAi1,
-        kAi2
-    };
 
 signals:
     void generateFieldInQml(unsigned int size);
@@ -26,14 +23,17 @@ signals:
     void standoff();
 public slots:
     void NewGame(int player, unsigned int filedSize);
-    void OnCellCliced(unsigned int x, unsigned int y);
+    void OnCellClicked(unsigned int x, unsigned int y, bool force = false);
 
 private:
     QString GetStateString(const model::Cell::eState state);
     QString GetPlayerString(const model::Model::ePlayer player);
+    typedef std::unique_ptr<ai::IPlayer> Player;
+    std::vector<ViewModel::Player>::iterator GetCurrentPlayer();
 private:
     std::unique_ptr<model::Model> model_;
     bool gameEnd_ = true;
+    std::vector<Player> players_;
 };
 
 #endif // VIEWMODEL_H

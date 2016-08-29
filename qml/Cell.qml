@@ -127,7 +127,7 @@ Item {
     }
 
     onClicked: {
-        viewmodel.OnCellCliced(arrayX, arrayY);
+        viewmodel.OnCellClicked(arrayX, arrayY);
     }
 }
 
