@@ -13,7 +13,11 @@ Cell::Cell(size_t fieldSize)
         ++globalX_;
     } else {
         globalX_ = 0;
+    }
+    if(globalY_ < fieldSize) {
         ++globalY_;
+    } else {
+        globalY_ = 0;
     }
 }
 

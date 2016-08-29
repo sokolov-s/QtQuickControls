@@ -12,19 +12,28 @@ class ViewModel : public QObject
     Q_OBJECT
 public:
     explicit ViewModel(QObject *parent = 0);
-    
+    enum ePlayer {
+        kHuman,
+        kAi1,
+        kAi2
+    };
+
 signals:
     void generateFieldInQml(unsigned int size);
     void changeCellState(unsigned int x, unsigned int y, const QString & stateString);
-    void playerWin(model::Model::ePlayer player);
+    void playerWin(const QString & player);
+    void playerCanged(const QString & player);
+    void standoff();
 public slots:
-    void NewGame(unsigned int size);
+    void NewGame(int player, unsigned int filedSize);
     void OnCellCliced(unsigned int x, unsigned int y);
 
 private:
     QString GetStateString(const model::Cell::eState state);
+    QString GetPlayerString(const model::Model::ePlayer player);
 private:
     std::unique_ptr<model::Model> model_;
+    bool gameEnd_ = true;
 };
 
 #endif // VIEWMODEL_H

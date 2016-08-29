@@ -5,14 +5,14 @@
 namespace ai {
 
 enum class eTrend {
-    kX2Right,
-    kX2Left,
-    kY2Up,
-    kY2Down,
-    kX2RightY2Down,
-    kX2RightY2Up,
-    kX2LeftY2Down,
-    kX2LeftY2Up
+    kX2Positive,
+    kX2Negative,
+    kY2Positve,
+    kY2Negative,
+    kX2PositiveY2Positive,
+    kX2PositiveY2Negative,
+    kX2NegativeY2Positive,
+    kX2NegativeY2Negative
 };
 bool IsWin(const model::Field &field, const model::Cell::eState state, const size_t count2win);
 
@@ -22,13 +22,13 @@ bool IsWin(const model::Field &field, const model::Cell::eState state, const siz
  * @param state - what kind of player we need to check
  * @param position - start position
  * @param count2win - count of continuous values of cell in field for the victory
- * @param trend - Direction for x. Can be only kX2Right or kX2Left. Function generate EWrongParameter exeption
- * if trend !=  kX2Right or kX2Left.
+ * @param trend - Direction for x. Can be only kX2Positive or kX2Negative. Function generate EWrongParameter exeption
+ * if trend !=  kX2Positive or kX2Negative.
  * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
  */
 size_t CheckHorizontal(const model::Field &field, const model::Cell::eState state,
                        const model::Cell::Position &position, const size_t count2win,
-                       const eTrend trend = eTrend::kX2Right);
+                       const eTrend trend = eTrend::kX2Positive);
 
 /**
  * @brief CheckVertical - check vertical line from position to end or begin of field (depends of trend).
@@ -36,13 +36,13 @@ size_t CheckHorizontal(const model::Field &field, const model::Cell::eState stat
  * @param state - what kind of player we need to check
  * @param position - start position
  * @param count2win - count of continuous values of cell in field for the victory
- * @param trend - Direction for y. Can be only kY2Up or kY2Down. Function generate EWrongParameter exeption
- * if trend !=  kY2Up or kY2Down.
+ * @param trend - Direction for y. Can be only kY2Positve or kY2Negative. Function generate EWrongParameter exeption
+ * if trend !=  kY2Positve or kY2Negative.
  * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
  */
 size_t CheckVertical(const model::Field &field, const model::Cell::eState state,
                      const model::Cell::Position &position, const size_t count2win,
-                     const eTrend trend = eTrend::kY2Down);
+                     const eTrend trend = eTrend::kY2Positve);
 
 /**
  * @brief CheckVertical - check vertical line from position to end or begin of field (depends of trend).
@@ -50,8 +50,9 @@ size_t CheckVertical(const model::Field &field, const model::Cell::eState state,
  * @param state - what kind of player we need to check
  * @param position - start position
  * @param count2win - count of continuous values of cell in field for the victory
- * @param trend - Direction for x and y. Can be only kX2RightY2Down, kX2RightY2Up, kX2LeftDownY or kX2LeftY2Up.
- * Function generate EWrongParameter exeption if trend !=  kX2RightY2Down, kX2RightY2Up, kX2LeftY2Down or kX2LeftY2Up.
+ * @param trend - Direction for x and y. Can be only kX2PositiveY2Positive, kX2PositiveY2Negative, kX2NegativeDownY or kX2NegativeY2Negative.
+ * Function generate EWrongParameter exeption if trend !=  kX2PositiveY2Positive, kX2PositiveY2Negative,
+ * kX2NegativeY2Positive or kX2NegativeY2Negative.
  * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
  */
 size_t CheckDiagonal(const model::Field &field, const model::Cell::eState state,

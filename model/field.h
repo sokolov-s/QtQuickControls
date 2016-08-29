@@ -15,10 +15,13 @@ public:
     const Cell & GetCell(size_t x, size_t y) const;
     Cell *GetCellPtr(size_t x, size_t y);
     size_t GetSize() const noexcept;
+    void SetCellState(size_t x, size_t y, const Cell::eState state);
+    size_t GetEmptyCellsCount() const noexcept;
 private:
-    size_t size_;
+    size_t size_ = 0;
     typedef std::vector<std::vector<Cell>> Grid;
     Grid grid_;
+    size_t emptyCellsCnt_ = 0;
 };
 } //namespace model
 #endif // FIELD_H

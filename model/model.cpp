@@ -2,8 +2,7 @@
 
 using namespace model;
 
-Model::Model(ViewModel *cntrl)
-    : controller_(cntrl)
+Model::Model()
 {    
 }
 
@@ -44,5 +43,10 @@ Cell::eState Model::GetState4Player(const Model::ePlayer player) const noexcept
     case ePlayer::kO: return Cell::eState::kO;
     default: return Cell::eState::kEmpty;
     }
+}
+
+bool Model::IsFieldFull() const noexcept
+{
+    return (field_->GetEmptyCellsCount() == 0);
 }
 

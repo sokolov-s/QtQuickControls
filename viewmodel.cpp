@@ -11,29 +11,32 @@ ViewModel::ViewModel(QObject *parent) : QObject(parent)
     qmlRegisterType<ViewModel>("com.TicTacToe.ViewModel", 1, 0, "viewmodel");
 }
 
-void ViewModel::NewGame(unsigned int size)
+void ViewModel::NewGame(int player, unsigned int filedSize)
 {
-    model_.reset(new model::Model(this));
-    model_->CreateField(size);
-    emit generateFieldInQml(size);
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_int_distribution<> dist(model::Model::ePlayer::kX, model::Model::ePlayer::kO);
-    model_->SetPlayer(model::Model::ePlayer(dist(mt)));
-
+    model_.reset(new model::Model());
+    model_->CreateField(filedSize);
+    emit generateFieldInQml(filedSize);
+    model_->SetPlayer(model::Model::ePlayer::kX);
+    emit playerCanged(GetPlayerString(model_->GetCurrentPlayer()));
+    gameEnd_ = false;
 }
 
 void ViewModel::OnCellCliced(unsigned int x, unsigned int y)
 {
+    if (gameEnd_) return;
     try {
         auto state = model_->GetCurrentPlayer() == model::Model::ePlayer::kO ? model::Cell::eState::kO : model::Cell::eState::kX;
-        model_->GetField()->GetCellPtr(x, y)->SetState(state);
+        model_->GetField()->SetCellState(x, y, state);
         emit changeCellState(x, y, GetStateString(state));
-        // calculate field status
         if(ai::IsWin(*model_->GetField(), model_->GetState4Player(model_->GetCurrentPlayer()), model_->GetField()->GetSize())) {
-            emit playerWin(model_->GetCurrentPlayer());
+            gameEnd_ = true;
+            emit playerWin(GetPlayerString(model_->GetCurrentPlayer()));
+        } else if (model_->IsFieldFull()) {
+            gameEnd_ = true;
+            emit standoff();
         } else {
             model_->SwitchPlayer();
+            emit playerCanged(GetPlayerString(model_->GetCurrentPlayer()));
         }
     } catch (const model::EBadOperation &/*err*/) {
         // in this context we do nothing
@@ -50,6 +53,15 @@ QString ViewModel::GetStateString(const model::Cell::eState state)
     case model::Cell::eState::kEmpty :
     default:
         return std::move(QString("empty"));
+    }
+}
+
+QString ViewModel::GetPlayerString(const model::Model::ePlayer player)
+{
+    switch(player) {
+    case model::Model::ePlayer::kX : return std::move(QString("Player 1"));
+    case model::Model::ePlayer::kO : return std::move(QString("Player 2"));
+    default: return std::move(QString("Player Unknown"));
     }
 }
 

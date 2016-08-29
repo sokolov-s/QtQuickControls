@@ -6,6 +6,7 @@ using namespace model;
 Field::Field(const size_t size)
     : size_(size)
     , grid_(size, std::vector<Cell>(size, size))
+    , emptyCellsCnt_(size * size)
 {    
 }
 
@@ -25,10 +26,22 @@ Cell *Field::GetCellPtr(size_t x, size_t y)
 {
     // I understand that const_cast is bad. But in future we can change
     // model of field and then we will need to change both functions
+    // In this case const_cast is safely
     return &const_cast<Cell&>(GetCell(x,y));
 }
 
 size_t Field::GetSize() const noexcept
 {
     return size_;
+}
+
+void Field::SetCellState(size_t x, size_t y, const Cell::eState state)
+{
+    GetCellPtr(x,y)->SetState(state);
+    --emptyCellsCnt_;
+}
+
+size_t Field::GetEmptyCellsCount() const noexcept
+{
+    return emptyCellsCnt_;
 }

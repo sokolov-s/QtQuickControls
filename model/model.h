@@ -18,7 +18,7 @@ public:
         kO
     };
 
-    Model(ViewModel *cntrl);
+    Model();
     void CreateField(const size_t size);
     void ClearField();
     void SetPlayer(ePlayer player);
@@ -26,9 +26,9 @@ public:
     void SwitchPlayer();
     Field *GetField();
     Cell::eState GetState4Player(const ePlayer player) const noexcept;
+    bool IsFieldFull() const noexcept;
 private:
     std::unique_ptr<Field> field_;
-    ViewModel *controller_ = nullptr;
     ePlayer curPlayer_ = ePlayer::kX;
 };
 
