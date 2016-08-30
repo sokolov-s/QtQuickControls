@@ -5,7 +5,8 @@
 
 using namespace ai;
 
-AIPlayerRandom::AIPlayerRandom()
+AIPlayerRandom::AIPlayerRandom(model::Model::ePlayer playerType)
+    : IPlayer(playerType)
 {
 
 }

@@ -12,12 +12,12 @@ factory::PlayerFactory &factory::PlayerFactory::Instance()
     return factory;
 }
 
-PlayerFactory::Player PlayerFactory::CreatePlayer(PlayerFactory::ePlayer player)
+PlayerFactory::Player PlayerFactory::CreatePlayer(PlayerFactory::ePlayer player, model::Model::ePlayer playerType)
 {
     switch(player) {
-    case ePlayer::kHuman : return std::move(Player(new ai::HumanPlayer));
-    case ePlayer::kAiLevel1: return std::move(Player(new ai::AIPlayerRandom));
-    case ePlayer::kAiLevel2: return std::move(Player(new ai::AIPlayerDefender));
+    case ePlayer::kHuman : return std::move(Player(new ai::HumanPlayer(playerType)));
+    case ePlayer::kAiLevel1: return std::move(Player(new ai::AIPlayerRandom(playerType)));
+    case ePlayer::kAiLevel2: return std::move(Player(new ai::AIPlayerDefender(playerType)));
     default: throw std::invalid_argument("Unknown player type");
     }
 }

@@ -16,7 +16,7 @@ public:
     };
     static PlayerFactory &Instance();
     typedef std::unique_ptr<ai::IPlayer> Player;
-    Player CreatePlayer(ePlayer player);
+    Player CreatePlayer(ePlayer player, model::Model::ePlayer playerType);
 private:
     PlayerFactory(){}
     ~PlayerFactory(){}

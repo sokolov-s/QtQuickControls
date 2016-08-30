@@ -19,16 +19,42 @@ public:
     };
 
     Model();
+
+    /**
+     * @brief CreateField - generate field with empty cells of the specified size
+     * @param size - the length of the field side
+     */
     void CreateField(const size_t size);
+
+    /**
+     * @brief ClearField - mark all cells in the field as empty
+     */
     void ClearField();
+
+    /**
+     * @brief SetPlayer - Change current player
+     * @param player - player
+     */
     void SetPlayer(ePlayer player);
+
+    /**
+     * @brief GetCurrentPlayer - return current player
+     * @return - player
+     */
     ePlayer GetCurrentPlayer() const noexcept;
+
+    /**
+     * @brief GetCurrentPlayerNumber - return current player number. It can be from 1 to 2
+     * @return - player number
+     */
     size_t GetCurrentPlayerNumber() const noexcept;
+
     /**
      * @brief SwitchPlayer - switch player
      * @return  - number of new player
      */
     size_t SwitchPlayer() noexcept;
+
     std::shared_ptr<Field> GetField();
     Cell::eState GetCellState4Player() const noexcept;
     Cell::eState GetCellState4Player(const ePlayer player) const noexcept;

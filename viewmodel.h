@@ -8,6 +8,7 @@
 #include "model/cell.h"
 #include "ai/iplayer.h"
 #include <vector>
+#include "player_factory.h"
 
 class ViewModel : public QObject
 {
@@ -22,14 +23,16 @@ signals:
     void playerCanged(const QString & player);
     void standoff();
 public slots:
-    void NewGame(int player, unsigned int filedSize);
+    void NewGame(int player, unsigned int fieldSize);
     void OnCellClicked(unsigned int x, unsigned int y, bool force = false);
 
 private:
-    QString GetStateString(const model::Cell::eState state);
-    QString GetPlayerString(const model::Model::ePlayer player);
+    QString GetStateString(model::Cell::eState state);
+    QString GetPlayerString(model::Model::ePlayer player);
     typedef std::unique_ptr<ai::IPlayer> Player;
     std::vector<ViewModel::Player>::iterator GetCurrentPlayer();
+    void AddPlayer(factory::PlayerFactory::ePlayer player, model::Model::ePlayer playerType, unsigned int fieldSize);
+    void MakeTurn();
 private:
     std::unique_ptr<model::Model> model_;
     bool gameEnd_ = true;

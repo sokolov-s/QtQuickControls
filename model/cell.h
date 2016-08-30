@@ -21,7 +21,7 @@ public:
     };
 
     Cell(size_t fieldSize);
-    void SetState(const eState state);
+    void SetState(eState state);
     eState GetState() const noexcept;
     const Position & GetPosition() const noexcept;
     size_t GetX() const noexcept;

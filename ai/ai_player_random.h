@@ -5,10 +5,15 @@
 
 namespace ai {
 
+/**
+ * @brief The AIPlayerRandom class
+ * Create a bot which does not analyze any situation and just takes random empty cell from field and
+ * makes a turn into this cell
+ */
 class AIPlayerRandom : public IPlayer
 {
 public:
-    AIPlayerRandom();
+    AIPlayerRandom(model::Model::ePlayer playerType);
     ~AIPlayerRandom();
     bool IsHuman() const override {return false;}
 protected:

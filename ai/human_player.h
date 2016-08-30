@@ -5,10 +5,13 @@
 
 namespace ai {
 
+/**
+ * @brief The HumanPlayer class. It is a dummy for human player
+ */
 class HumanPlayer : public IPlayer
 {
 public:
-    HumanPlayer(){}
+    HumanPlayer(model::Model::ePlayer playerType): IPlayer(playerType) {}
     ~HumanPlayer(){}
     bool IsHuman() const override {return true;}
 private:

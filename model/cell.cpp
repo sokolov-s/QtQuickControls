@@ -19,7 +19,7 @@ Cell::Cell(size_t fieldSize)
     }
 }
 
-void Cell::SetState(const Cell::eState state)
+void Cell::SetState(Cell::eState state)
 {
     if(eState::kEmpty == state_) {
         state_ = state;

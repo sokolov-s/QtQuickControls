@@ -9,7 +9,6 @@ SOURCES += main.cpp \
     viewmodel.cpp \
     ai/wincheck.cpp \
     player_factory.cpp \
-    ai/human_player.cpp \
     ai/ai_player_random.cpp \
     ai/ai_player_defender.cpp \
     ai/iplayer.cpp

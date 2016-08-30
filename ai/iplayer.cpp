@@ -2,8 +2,9 @@
 
 using namespace ai;
 
-IPlayer::IPlayer()
-    : calculatingFlag_(false)
+IPlayer::IPlayer(model::Model::ePlayer playerType)
+    : type_(playerType)
+    , calculatingFlag_(false)
     , interruptFlag_(false)
 {
 }
@@ -15,7 +16,7 @@ IPlayer::~IPlayer()
 
 void IPlayer::MakeTurn(std::function<void (unsigned int, unsigned int)> callBack)
 {
-    // TODO: make thread pool for jobs
+    // TODO: use boost thread pool for jobs
     Wait4Results();
     std::swap(cb_, callBack);
     std::thread(std::bind(&IPlayer::RunCalculation, this)).detach();
@@ -23,7 +24,7 @@ void IPlayer::MakeTurn(std::function<void (unsigned int, unsigned int)> callBack
 
 void IPlayer::MakeTurn(Field field, model::Cell::eState playerState, std::function<void (unsigned int, unsigned int)> callBack)
 {
-    // TODO: make thread pool for jobs
+    // TODO: use boost thread pool for jobs
     Wait4Results();
     SetField(field);
     SetPlayerCellsType(playerState);
@@ -52,7 +53,7 @@ model::Cell::eState IPlayer::GetOpponentCellsType() const noexcept
     return opponentCells_;
 }
 
-bool IPlayer::IsInterrupted() noexcept
+bool IPlayer::IsInterrupted() const noexcept
 {
     return interruptFlag_.load();
 }

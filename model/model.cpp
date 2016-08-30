@@ -13,7 +13,11 @@ void Model::CreateField(const size_t size)
 
 void Model::ClearField()
 {
-    field_->Clear();
+    for(size_t i = 0; i < GetField()->GetSize(); ++i) {
+        for(size_t j = 0; j < GetField()->GetSize(); ++j) {
+            GetField()->SetCellState(j, i, Cell::eState::kEmpty);
+        }
+    }
 }
 
 void Model::SetPlayer(Model::ePlayer player)
