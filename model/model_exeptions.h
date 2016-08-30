@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <qglobal.h>
 
 namespace model {
 
@@ -10,7 +11,13 @@ class EBadOperation : public std::exception
 {
 public:
     explicit EBadOperation(const std::string &msg) : msg_(msg){}
+#if defined(Q_OS_DARWIN)
+    const char * what() const  _NOEXCEPT override
+#elif defined(Q_OS_LINUX)
     const char * what() const _GLIBCXX_USE_NOEXCEPT override
+#elif defined(Q_OS_MSDOS)
+    const char * what() const _NOEXCEPT override
+#endif
     {
         return msg_.c_str();
     }
@@ -23,7 +30,13 @@ class EWrongParameter : public std::exception
 {
 public:
     explicit EWrongParameter(const std::string &msg) : msg_(msg){}
+#if defined(Q_OS_DARWIN)
+    const char * what() const  _NOEXCEPT override
+#elif defined(Q_OS_LINUX)
     const char * what() const _GLIBCXX_USE_NOEXCEPT override
+#elif defined(Q_OS_MSDOS)
+    const char * what() const _NOEXCEPT override
+#endif
     {
         return msg_.c_str();
     }
