@@ -22,7 +22,9 @@ void ViewModel::NewGame(int player, unsigned int filedSize)
     emit playerCanged(GetPlayerString(model_->GetCurrentPlayer()));
     players_.clear();
     players_.emplace_back(factory::PlayerFactory::Instance().CreatePlayer(factory::PlayerFactory::ePlayer::kHuman));
+    players_[players_.size() - 1]->SetWinRowsCount(filedSize);
     players_.emplace_back(factory::PlayerFactory::Instance().CreatePlayer(static_cast<factory::PlayerFactory::ePlayer>(player)));
+    players_[players_.size() - 1]->SetWinRowsCount(filedSize);
     gameEnd_ = false;
 }
 
@@ -31,10 +33,10 @@ void ViewModel::OnCellClicked(unsigned int x, unsigned int y, bool force)
     if (gameEnd_) return;
     if(!(*GetCurrentPlayer())->IsHuman() && !force) return;
     try {
-        auto state = (model_->GetCurrentPlayer() == model::Model::ePlayer::kO) ? model::Cell::eState::kO : model::Cell::eState::kX;
+        auto state = model_->GetCellState4Player();
         model_->GetField()->SetCellState(x, y, state);
         emit changeCellState(x, y, GetStateString(state));
-        if(ai::IsWin(*model_->GetField(), model_->GetState4Player(model_->GetCurrentPlayer()), model_->GetField()->GetSize())) {
+        if(ai::IsWin(*model_->GetField(), state, model_->GetField()->GetSize())) {
             gameEnd_ = true;
             emit playerWin(GetPlayerString(model_->GetCurrentPlayer()));
         } else if (model_->IsFieldFull()) {
@@ -45,6 +47,9 @@ void ViewModel::OnCellClicked(unsigned int x, unsigned int y, bool force)
             emit playerCanged(GetPlayerString(model_->GetCurrentPlayer()));
             if(!(*GetCurrentPlayer())->IsHuman()) {
                 using namespace std::placeholders;
+                (*GetCurrentPlayer())->SetField(model_->GetField());
+                (*GetCurrentPlayer())->SetPlayerCellsType(model_->GetCellState4Player());
+                (*GetCurrentPlayer())->SetOpponentCellsType(state);
                 (*GetCurrentPlayer())->MakeTurn(std::bind(&ViewModel::OnCellClicked, this, _1, _2, true));
             }
         }

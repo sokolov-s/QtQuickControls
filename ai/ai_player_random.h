@@ -11,7 +11,7 @@ public:
     AIPlayerRandom();
     ~AIPlayerRandom();
     bool IsHuman() const override {return false;}
-private:
+protected:
     void CalculateTurn(unsigned int *x, unsigned int *y) const override;
 };
 

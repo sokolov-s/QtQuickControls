@@ -9,14 +9,12 @@ size_t Cell::globalY_ = 0;
 Cell::Cell(size_t fieldSize)
     : position_(globalX_, globalY_)
 {
-    if(globalX_ < fieldSize) {
-        ++globalX_;
-    } else {
+    ++globalX_;
+    if(globalX_ == fieldSize) {
         globalX_ = 0;
-    }
-    if(globalY_ < fieldSize) {
         ++globalY_;
-    } else {
+    }
+    if(globalY_ == fieldSize) {
         globalY_ = 0;
     }
 }

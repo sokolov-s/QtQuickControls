@@ -1,18 +1,18 @@
 #ifndef AIPLAYERDEFENDER_H
 #define AIPLAYERDEFENDER_H
 
-#include "iplayer.h"
+#include "ai_player_random.h"
 
 namespace ai {
 
-class AIPlayerDefender : public IPlayer
+class AIPlayerDefender : public AIPlayerRandom
 {
 public:
     AIPlayerDefender();
     ~AIPlayerDefender();
-    bool IsHuman() const override {return false;}
-private:
     void CalculateTurn(unsigned int *x, unsigned int *y) const override;
+private:
+    bool FindLastCell2Win(model::Cell::eState state, unsigned int *x, unsigned int *y) const;
 };
 
 } //namespace ai

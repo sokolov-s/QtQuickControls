@@ -5,21 +5,21 @@ using namespace model;
 
 Field::Field(const size_t size)
     : size_(size)
-    , grid_(size, std::vector<Cell>(size, size))
     , emptyCellsCnt_(size * size)
-{    
+{
+    GenerateGrid();
 }
 
 void Field::Clear()
 {
-    grid_ = std::move(Grid(size_, std::vector<Cell>(size_, size_)));
+    GenerateGrid();
 }
 
 const Cell &Field::GetCell(size_t x, size_t y) const
 {
     if(x >= size_ || y >= size_)
         throw EWrongParameter("X or Y is wrong");
-    return grid_[x][y];
+    return grid_[y][x];
 }
 
 Cell *Field::GetCellPtr(size_t x, size_t y)
@@ -41,7 +41,24 @@ void Field::SetCellState(size_t x, size_t y, const Cell::eState state)
     --emptyCellsCnt_;
 }
 
+Cell::eState Field::GetCellState(size_t x, size_t y) const noexcept
+{
+    return GetCell(x,y).GetState();
+}
+
 size_t Field::GetEmptyCellsCount() const noexcept
 {
     return emptyCellsCnt_;
+}
+
+void Field::GenerateGrid()
+{
+    grid_.clear();
+    for(size_t y = 0; y < GetSize(); ++y) {
+        std::vector<Cell> row;
+        for (size_t x = 0; x < GetSize(); ++x) {
+            row.push_back(Cell(GetSize()));
+        }
+        grid_.push_back(row);
+    }
 }

@@ -30,7 +30,8 @@ public:
      */
     size_t SwitchPlayer() noexcept;
     std::shared_ptr<Field> GetField();
-    Cell::eState GetState4Player(const ePlayer player) const noexcept;
+    Cell::eState GetCellState4Player() const noexcept;
+    Cell::eState GetCellState4Player(const ePlayer player) const noexcept;
     bool IsFieldFull() const noexcept;
 private:
     std::shared_ptr<Field> field_;

@@ -42,7 +42,12 @@ std::shared_ptr<Field> Model::GetField()
     return field_;
 }
 
-Cell::eState Model::GetState4Player(const Model::ePlayer player) const noexcept
+Cell::eState Model::GetCellState4Player() const noexcept
+{
+    return GetCellState4Player(GetCurrentPlayer());
+}
+
+Cell::eState Model::GetCellState4Player(const Model::ePlayer player) const noexcept
 {
     switch(player) {
     case ePlayer::kX: return Cell::eState::kX;

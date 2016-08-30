@@ -15,6 +15,7 @@ IPlayer::~IPlayer()
 
 void IPlayer::MakeTurn(std::function<void (unsigned int, unsigned int)> callBack)
 {
+    // TODO: make thread pool for jobs
     Wait4Results();
     std::swap(cb_, callBack);
     std::thread(std::bind(&IPlayer::RunCalculation, this)).detach();
@@ -22,9 +23,10 @@ void IPlayer::MakeTurn(std::function<void (unsigned int, unsigned int)> callBack
 
 void IPlayer::MakeTurn(Field field, model::Cell::eState playerState, std::function<void (unsigned int, unsigned int)> callBack)
 {
+    // TODO: make thread pool for jobs
     Wait4Results();
     SetField(field);
-    SetPlayerState(playerState);
+    SetPlayerCellsType(playerState);
     MakeTurn(callBack);
 }
 
@@ -35,25 +37,40 @@ void IPlayer::Abort()
     interruptFlag_.store(false);
 }
 
-const IPlayer::Field IPlayer::GetField() const
+const IPlayer::Field IPlayer::GetField() const noexcept
 {
     return field_;
 }
 
-model::Cell::eState IPlayer::GetPlayerState() const
+model::Cell::eState IPlayer::GetPlayerCellsType() const noexcept
 {
-    return state_;
+    return palyerCells_;
 }
 
-bool IPlayer::IsInterrupted()
+model::Cell::eState IPlayer::GetOpponentCellsType() const noexcept
+{
+    return opponentCells_;
+}
+
+bool IPlayer::IsInterrupted() noexcept
 {
     return interruptFlag_.load();
+}
+
+size_t IPlayer::GetWinSize() const noexcept
+{
+    return cnt2Win_;
 }
 
 void IPlayer::Wait4Results()
 {
     std::unique_lock<std::mutex> locker(mtx_);
     cv_.wait(locker, [this]{return !calculatingFlag_.load();});
+}
+
+void IPlayer::SetWinRowsCount(size_t cnt) noexcept
+{
+    cnt2Win_ = cnt;
 }
 
 void IPlayer::RunCalculation()

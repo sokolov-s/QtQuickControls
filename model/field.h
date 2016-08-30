@@ -16,8 +16,10 @@ public:
     Cell *GetCellPtr(size_t x, size_t y);
     size_t GetSize() const noexcept;
     void SetCellState(size_t x, size_t y, const Cell::eState state);
+    Cell::eState GetCellState(size_t x, size_t y) const noexcept;
     size_t GetEmptyCellsCount() const noexcept;
 private:
+    void GenerateGrid();
     size_t size_ = 0;
     typedef std::vector<std::vector<Cell>> Grid;
     Grid grid_;
