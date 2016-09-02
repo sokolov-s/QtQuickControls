@@ -16,7 +16,11 @@ public:
 #elif defined(Q_OS_LINUX)
     const char * what() const _GLIBCXX_USE_NOEXCEPT override
 #elif defined(Q_OS_WIN)
+#if defined(__MINGW32__)
+    const char * what() const _GLIBCXX_USE_NOEXCEPT override
+#else
     const char * what() const _NOEXCEPT override
+#endif
 #endif
     {
         return msg_.c_str();
@@ -35,7 +39,11 @@ public:
 #elif defined(Q_OS_LINUX)
     const char * what() const _GLIBCXX_USE_NOEXCEPT override
 #elif defined(Q_OS_WIN)
+#if defined(__MINGW32__)
+    const char * what() const _GLIBCXX_USE_NOEXCEPT override
+#else
     const char * what() const _NOEXCEPT override
+#endif
 #endif
     {
         return msg_.c_str();

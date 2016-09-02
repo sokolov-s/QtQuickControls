@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     player_factory.cpp \
     ai/ai_player_random.cpp \
     ai/ai_player_defender.cpp \
-    ai/iplayer.cpp
+    ai/iplayer.cpp \
+    ai/ai_player_aggressive.cpp
 
 HEADERS += \
     model/cell.h \
@@ -24,14 +25,19 @@ HEADERS += \
     player_factory.h \
     ai/human_player.h \
     ai/ai_player_random.h \
-    ai/ai_player_defender.h
+    ai/ai_player_defender.h \
+    ai/ai_player_aggressive.h
 
 RESOURCES += qml.qrc \
     rsrc.qrc
 
-CONFIG += debug qml_debug c++11
+CONFIG += c++11
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
+
+win32 {
+    QMAKE_LFLAGS_RELEASE += -static -static-libgcc
+}
 
 # Default rules for deployment.
 include(deployment.pri)

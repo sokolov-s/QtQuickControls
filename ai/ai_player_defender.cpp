@@ -17,8 +17,10 @@ AIPlayerDefender::~AIPlayerDefender()
 void ai::AIPlayerDefender::CalculateTurn(unsigned int *x, unsigned int *y) const
 {
     try {
-        if(FindLastCell2Win(GetPlayerCellsType(), x, y)) return;
-        if(FindLastCell2Win(GetOpponentCellsType(), x, y)) return;
+        if(FindLastCell2Win(GetPlayerCellsType(), x, y))
+            return;
+        if(FindLastCell2Win(GetOpponentCellsType(), x, y))
+            return;
         AIPlayerRandom::CalculateTurn(x, y);
     } catch (const std::invalid_argument &) {
         // Generate throw in main thread
@@ -28,22 +30,27 @@ void ai::AIPlayerDefender::CalculateTurn(unsigned int *x, unsigned int *y) const
 
 bool AIPlayerDefender::FindLastCell2Win(model::Cell::eState state, unsigned int *x, unsigned int *y) const
 {
-    size_t fieldSize = GetField()->GetSize();
+    return FindLastCell2Win(*GetField(), state, x, y);
+}
+
+bool AIPlayerDefender::FindLastCell2Win(const model::Field &field, model::Cell::eState state, unsigned int *x, unsigned int *y) const
+{
+    size_t fieldSize = field.GetSize();
     try {
-        if(CheckDiagonal(*GetField(), state, model::Cell::Position(0, 0),
+        if(CheckDiagonal(field, state, model::Cell::Position(0, 0),
                          GetWinSize(), eTrend::kX2PositiveY2Positive) == 1) {
             for(size_t j = 0; j < fieldSize; ++j) {
-                if(GetField()->GetCellState(j, j) == model::Cell::eState::kEmpty) {
+                if(field.GetCellState(j, j) == model::Cell::eState::kEmpty) {
                     *x = j;
                     *y = j;
                     return true;
                 }
             }
         }
-        if(CheckDiagonal(*GetField(), state, model::Cell::Position(fieldSize - 1, 0), GetWinSize(),
+        if(CheckDiagonal(field, state, model::Cell::Position(fieldSize - 1, 0), GetWinSize(),
                          eTrend::kX2NegativeY2Positive) == 1) {
             for(size_t j = 1; j <= fieldSize; ++j) {
-                if(GetField()->GetCellState(j - 1, fieldSize - j) == model::Cell::eState::kEmpty) {
+                if(field.GetCellState(j - 1, fieldSize - j) == model::Cell::eState::kEmpty) {
                     *x = j - 1;
                     *y = fieldSize - j;
                     return true;
@@ -52,18 +59,18 @@ bool AIPlayerDefender::FindLastCell2Win(model::Cell::eState state, unsigned int 
         }
         for(size_t i = 0; i < fieldSize; ++ i) {
             if(IsInterrupted()) return false;
-            if(CheckVertical(*GetField(), state, model::Cell::Position(i, 0), GetWinSize()) == 1) {
+            if(CheckVertical(field, state, model::Cell::Position(i, 0), GetWinSize()) == 1) {
                 for(size_t j = 0; j < fieldSize; ++j) {
-                    if(GetField()->GetCellState(i, j) == model::Cell::eState::kEmpty) {
+                    if(field.GetCellState(i, j) == model::Cell::eState::kEmpty) {
                         *x = i;
                         *y = j;
                         return true;
                     }
                 }
             }
-            if(CheckHorizontal(*GetField(), state, model::Cell::Position(0, i), GetWinSize()) == 1) {
+            if(CheckHorizontal(field, state, model::Cell::Position(0, i), GetWinSize()) == 1) {
                 for(size_t j = 0; j < fieldSize; ++j) {
-                    if(GetField()->GetCellState(j, i) == model::Cell::eState::kEmpty) {
+                    if(field.GetCellState(j, i) == model::Cell::eState::kEmpty) {
                         *x = j;
                         *y = i;
                         return true;

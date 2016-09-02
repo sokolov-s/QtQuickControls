@@ -100,7 +100,7 @@ ApplicationWindow {
                 id: buttonHuman
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                anchors.topMargin: (parent.height - height * 3 - 20) / 2
+                anchors.topMargin: (parent.height - height * 4 - 20) / 2
                 text: qsTr("Human")
                 onClicked: {
                     opponentDialog.close();
@@ -127,6 +127,17 @@ ApplicationWindow {
                 onClicked: {
                     opponentDialog.close();
                     viewmodel.NewGame(2, 3);
+                }
+            }
+            Button {
+                id: buttonAi3
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: buttonAi2.bottom
+                anchors.topMargin: 10
+                text: qsTr("AI level 3")
+                onClicked: {
+                    opponentDialog.close();
+                    viewmodel.NewGame(3, 3);
                 }
             }
         }

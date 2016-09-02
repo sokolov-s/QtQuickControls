@@ -17,8 +17,9 @@ public:
     AIPlayerDefender(model::Model::ePlayer playerType);
     ~AIPlayerDefender();
     void CalculateTurn(unsigned int *x, unsigned int *y) const override;
-private:
+protected:
     bool FindLastCell2Win(model::Cell::eState state, unsigned int *x, unsigned int *y) const;
+    bool FindLastCell2Win(const model::Field &fiedl, model::Cell::eState state, unsigned int *x, unsigned int *y) const;
 };
 
 } //namespace ai

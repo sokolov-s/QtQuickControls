@@ -12,7 +12,8 @@ public:
     enum ePlayer {
         kHuman,
         kAiLevel1,
-        kAiLevel2
+        kAiLevel2,
+        kAiLevel3,
     };
     static PlayerFactory &Instance();
     typedef std::unique_ptr<ai::IPlayer> Player;

@@ -28,7 +28,6 @@ bool ai::IsWin(const model::Field &field, const model::Cell::eState state, const
     return false;
 }
 
-
 size_t ai::CheckHorizontal(const model::Field &field, const model::Cell::eState state,
                            const model::Cell::Position &position, const size_t count2win,
                            const eTrend trend)
