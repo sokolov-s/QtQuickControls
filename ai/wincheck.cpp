@@ -38,8 +38,11 @@ size_t ai::CheckHorizontal(const model::Field &field, const model::Cell::eState 
     case eTrend::kX2Positive:
         for(; x < field.GetSize(); ++x) {
             try{
-                if(field.GetCell(x, position.y).GetState() == state)
+                if(field.GetCell(x, position.y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, position.y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -50,8 +53,11 @@ size_t ai::CheckHorizontal(const model::Field &field, const model::Cell::eState 
     case eTrend::kX2Negative:
         for(; true; --x) {
             try {
-                if(field.GetCell(x, position.y).GetState() == state)
+                if(field.GetCell(x, position.y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, position.y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -75,8 +81,11 @@ size_t ai::CheckVertical(const model::Field &field, const model::Cell::eState st
     case eTrend::kY2Positve:
         for(; y < field.GetSize(); ++y) {
             try {
-                if(field.GetCell(position.x, y).GetState() == state)
+                if(field.GetCell(position.x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(position.x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -87,8 +96,11 @@ size_t ai::CheckVertical(const model::Field &field, const model::Cell::eState st
     case eTrend::kY2Negative:
         for(; true; --y) {
             try {
-                if(field.GetCell(position.x, y).GetState() == state)
+                if(field.GetCell(position.x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(position.x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -113,8 +125,11 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
     case eTrend::kX2PositiveY2Positive:
         for(; x < field.GetSize() && y < field.GetSize(); ++x, ++y) {
             try {
-                if(field.GetCell(x, y).GetState() == state)
+                if(field.GetCell(x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -125,8 +140,11 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
     case eTrend::kX2PositiveY2Negative:
         for(; x < field.GetSize(); ++x, --y) {
             try {
-                if(field.GetCell(x, y).GetState() == state)
+                if(field.GetCell(x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -137,8 +155,11 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
     case eTrend::kX2NegativeY2Positive:
         for(; y < field.GetSize(); --x, ++y) {
             try {
-                if(field.GetCell(x, y).GetState() == state)
+                if(field.GetCell(x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;
@@ -149,8 +170,11 @@ size_t ai::CheckDiagonal(const model::Field &field, const model::Cell::eState st
     case eTrend::kX2NegativeY2Negative:
         for(; true; --x, --y) {
             try {
-                if(field.GetCell(x, y).GetState() == state)
+                if(field.GetCell(x, y).GetState() == state) {
                     ++cnt;
+                } else if(field.GetCell(x, y).GetState() != model::Cell::eState::kEmpty) {
+                    return field.GetSize() + 1;
+                }
                 if(cnt >= count2win) return 0;
             } catch (const std::invalid_argument &/*err*/) {
                 break;

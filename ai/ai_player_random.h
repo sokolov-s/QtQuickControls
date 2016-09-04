@@ -7,7 +7,7 @@ namespace ai {
 
 /**
  * @brief The AIPlayerRandom class
- * Create a bot which does not analyze any situation and just takes random empty cell from field and
+ * Create an AI-layer which does not analyze any situation and just takes random empty cell from field and
  * makes a turn into this cell
  */
 class AIPlayerRandom : public IPlayer

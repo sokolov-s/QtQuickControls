@@ -24,7 +24,8 @@ bool IsWin(const model::Field &field, const model::Cell::eState state, const siz
  * @param count2win - count of continuous values of cell in field for the victory
  * @param trend - Direction for x. Can be only kX2Positive or kX2Negative. Function generate EWrongParameter exeption
  * if trend !=  kX2Positive or kX2Negative.
- * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
+ * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win of needed  cells to win or field's size + 1, if
+ * line can't get victory
  */
 size_t CheckHorizontal(const model::Field &field, const model::Cell::eState state,
                        const model::Cell::Position &position, const size_t count2win,
@@ -38,7 +39,8 @@ size_t CheckHorizontal(const model::Field &field, const model::Cell::eState stat
  * @param count2win - count of continuous values of cell in field for the victory
  * @param trend - Direction for y. Can be only kY2Positve or kY2Negative. Function generate EWrongParameter exeption
  * if trend !=  kY2Positve or kY2Negative.
- * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
+ * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win of needed  cells to win or field's size + 1, if
+ * line can't get victory
  */
 size_t CheckVertical(const model::Field &field, const model::Cell::eState state,
                      const model::Cell::Position &position, const size_t count2win,
@@ -53,7 +55,8 @@ size_t CheckVertical(const model::Field &field, const model::Cell::eState state,
  * @param trend - Direction for x and y. Can be only kX2PositiveY2Positive, kX2PositiveY2Negative, kX2NegativeDownY or kX2NegativeY2Negative.
  * Function generate EWrongParameter exeption if trend !=  kX2PositiveY2Positive, kX2PositiveY2Negative,
  * kX2NegativeY2Positive or kX2NegativeY2Negative.
- * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win
+ * @return - 0 if trend has victorious line. In otherwise return a number of needed  cells to win or field's size + 1, if
+ * line can't get victory
  */
 size_t CheckDiagonal(const model::Field &field, const model::Cell::eState state,
                    const model::Cell::Position &position,

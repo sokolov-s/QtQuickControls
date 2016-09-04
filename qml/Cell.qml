@@ -5,8 +5,8 @@ import com.TicTacToe.ViewModel 1.0
 
 Item {
     id: cellItem
-    width: 25
-    height: 25
+    width: 30
+    height: 30
     antialiasing: true
     signal clicked
     property int arrayX : 0

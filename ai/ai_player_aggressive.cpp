@@ -35,10 +35,22 @@ void AIPlayerAggressive::CalculateTurn(unsigned int *x, unsigned int *y) const
         }
         if(FindFork(GetPlayerCellsType(), x, y))
             return;
-        if(FindDanger(GetPlayerCellsType(), x, y))
+        if(FindDanger(GetPlayerCellsType(), x, y)) {
+            model::Field tmpField(*GetField());
+            tmpField.SetCellState(*x , *y, GetPlayerCellsType());
+            size_t winX, winY;
+            FindLastCell2Win(tmpField, GetPlayerCellsType(), &winX, &winY);
+            size_t opponentX, opponentY;
+            if (FindFork(GetOpponentCellsType(), &opponentX, &opponentY)
+                    && opponentX == winX && opponentY == winY) {
+                *x = opponentX;
+                *y = opponentY;
+            }
             return;
-        if(FindFork(GetOpponentCellsType(), x, y))
+        }
+        if(FindFork(GetOpponentCellsType(), x, y)) {
             return;
+        }
         AIPlayerRandom::CalculateTurn(x, y);
     } catch (const std::invalid_argument &) {
         // Generate throw in main thread
@@ -125,8 +137,11 @@ bool AIPlayerAggressive::FindDanger(const model::Field &field, model::Cell::eSta
             model::Field fieldTmp = field;
             if(fieldTmp.GetCell(j, i).GetState() == model::Cell::eState::kEmpty) {
                 fieldTmp.GetCellPtr(j, i)->SetState(state);
-                if(FindLastCell2Win(fieldTmp, state, x, y))
-                        return true;
+                if(FindLastCell2Win(fieldTmp, state, x, y)) {
+                    *x = j;
+                    *y = i;
+                    return true;
+                }
             }
         }
     }
@@ -159,14 +174,12 @@ bool AIPlayerAggressive::FindDangerCorner(model::Cell::eState state, unsigned in
 bool AIPlayerAggressive::CheckCell4Danger(unsigned int cellX, unsigned int cellY, model::Cell::eState state) const
 {
     model::Field fieldTmp = *GetField();
-    try {
-        if(fieldTmp.GetCell(cellX, cellY).GetState() != model::Cell::eState::kEmpty)
-            return false;
-        fieldTmp.GetCellPtr(cellX, cellY)->SetState(state);
-        unsigned int x,y;
-        if(FindLastCell2Win(fieldTmp, state, &x, &y))
-            return true;
-    } catch (const std::invalid_argument &) {
+    if(fieldTmp.GetCell(cellX, cellY).GetState() != model::Cell::eState::kEmpty)
+        return false;
+    fieldTmp.GetCellPtr(cellX, cellY)->SetState(state);
+    unsigned int x,y;
+    if(FindLastCell2Win(fieldTmp, state, &x, &y)) {
+        return true;
     }
     return false;
 }

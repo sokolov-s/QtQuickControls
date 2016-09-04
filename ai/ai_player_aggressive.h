@@ -5,6 +5,13 @@
 
 namespace ai {
 
+/**
+ * @brief The AIPlayerAggressive class
+ * Create an AI-player with a perfect strategy. At first AI analyses field for his own victory.
+ * If there are no turns to have a victory by the one turn, AI analyzes field for opponent victory by one turn.
+ * If opponent does not have a victory turns, AI try to find a cell wich make a "fork" from both side.
+ * If AI or opponent do not have a "fork", AI find first cell with next wictory line
+ */
 class AIPlayerAggressive : public AIPlayerDefender
 {
 public:
