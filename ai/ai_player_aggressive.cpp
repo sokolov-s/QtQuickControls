@@ -38,9 +38,9 @@ void AIPlayerAggressive::CalculateTurn(unsigned int *x, unsigned int *y) const
         if(FindDanger(GetPlayerCellsType(), x, y)) {
             model::Field tmpField(*GetField());
             tmpField.SetCellState(*x , *y, GetPlayerCellsType());
-            size_t winX, winY;
+            unsigned int  winX, winY;
             FindLastCell2Win(tmpField, GetPlayerCellsType(), &winX, &winY);
-            size_t opponentX, opponentY;
+            unsigned int opponentX, opponentY;
             if (FindFork(GetOpponentCellsType(), &opponentX, &opponentY)
                     && opponentX == winX && opponentY == winY) {
                 *x = opponentX;
